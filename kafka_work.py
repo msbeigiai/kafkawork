@@ -17,10 +17,19 @@ class KafkaWork:
             group_id=self.kafka_config["group_id"],
             value_deserializer=self.kafka_config["value_deserializer"]
         )
+        if self.consumer is None:
+            raise ValueError(f"Consumer is NULL!")
+        else:
+            print(f"{self.consumer} is established.")
 
     def create_producer(self):
         self.producer = KafkaProducer(
             bootstrap_servers=self.kafka_config["bootstrap_servers"],
             value_serializer=self.kafka_config["value_deserializer"]
         )
+        if self.producer is None:
+            raise ValueError(f"Producer is NULL!")
+        else:
+            print(f"{self.producer} is established.")
+
 
