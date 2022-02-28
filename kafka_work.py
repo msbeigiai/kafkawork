@@ -1,5 +1,4 @@
 from kafka import KafkaConsumer, KafkaProducer
-from json import loads
 
 
 class KafkaWork:
@@ -17,10 +16,12 @@ class KafkaWork:
             group_id=self.kafka_config["group_id"],
             value_deserializer=self.kafka_config["value_deserializer"]
         )
+
         if self.consumer is None:
             raise ValueError(f"Consumer is NULL!")
         else:
             print(f"{self.consumer} is established.")
+            print(self.consumer.topics())
 
     def create_producer(self):
         self.producer = KafkaProducer(
@@ -31,5 +32,12 @@ class KafkaWork:
             raise ValueError(f"Producer is NULL!")
         else:
             print(f"{self.producer} is established.")
+
+    def show_messages(self, number_of_records=1):
+        if self.consumer is None:
+            raise ValueError("Consumer is NULL!")
+        else:
+            for message in self.consumer:
+                print(message.value)
 
 
