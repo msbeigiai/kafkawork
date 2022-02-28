@@ -37,7 +37,12 @@ class KafkaWork:
         if self.consumer is None:
             raise ValueError("Consumer is NULL!")
         else:
+            # if self.consumer.
             for message in self.consumer:
-                print(message.value)
+                if message is None:
+                    raise ValueError("There is no message to show!")
+                else:
+                    print(message.value)
+                    return message.value
 
 

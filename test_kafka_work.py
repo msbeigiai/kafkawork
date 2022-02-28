@@ -13,7 +13,10 @@ class TestKafkaWork(unittest.TestCase):
         kw.create_consumer()
         self.assertTrue(kw.consumer)
 
-
+    def test_has_message(self):
+        kw.create_consumer()
+        message = kw.show_messages()
+        self.assertTrue(message)
 
 
 

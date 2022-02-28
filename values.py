@@ -1,6 +1,7 @@
 from json import loads
 
-topic_name = 'DebeziumTestServer.dbo.TestDb1Table1'
+topic_name = 'DebeziumTestServer.dbo.RETAILTRANSACTIONTABLE'
+# topic_name = 'dbhistory.RETAILTRANSACTIONTABLE.DebeziumTestServer'
 def value_deserializer(): lambda x: loads(x.decode('utf-8'))
 
 
@@ -9,6 +10,8 @@ kafka_config = {
     "bootstrap_servers": ['172.31.70.21:9092'],
     "auto_offset_reset": 'earliest',
     "enable_auto_commit": True,
-    "group_id": 'my-group',
-    "value_deserializer": value_deserializer
+    "group_id": 'some_group01',
+    "value_deserializer": value_deserializer()
 }
+
+transactiontable_id_list = ['TRANSACTIONID', 'STORE', 'TERMINAL', 'CHANNEL', 'DATAAREAID', 'PARTITION']
