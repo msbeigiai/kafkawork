@@ -8,7 +8,7 @@ class KafkaWork:
         self.kafka_config = kafka_config
         self.id_values = kafka_config["id_values"]
         self.value = []
-        self.message = None
+        self.message = []
 
     def create_consumer(self):
         self.consumer = KafkaConsumer(
@@ -52,25 +52,29 @@ class KafkaWork:
                     num = self._list_len()
                     print(num)
                     print(50*'-')
-                    self._fetch_id(num)
+                    self._fetch_id(loads(message.value))
 
     def _list_len(self):
         return len(self.value)
 
-    def _fetch_id(self, len_list):
-        output = []
+    def _fetch_id(self, msg):
         records = []
-        iterator = 0
-        for i in range(len_list):
-            val = self.value[i]
-            while iterator < len(self.id_values):
-                records.append(val["payload"]["after"][self.id_values[iterator]])
-                iterator += 1
-
-        for i in range(len_list):
-            output.append(records)
-
-        print(output)
+        for i in range(len(self.id_values)):
+            records.append(msg["payload"]["after"][self.id_values[i]])
+        self.message.append(records)
+        # output = []
+        # records = []
+        # iterator = 0
+        # for i in range(len_list):
+        #     val = self.value[i]
+        #     while iterator < len(self.id_values):
+        #         records.append(val["payload"]["after"][self.id_values[iterator]])
+        #         iterator += 1
+        #
+        # # for i in range(len_list):
+        # #     output.append(self.value[records])
+        # #
+        # # print(output)
 
 
 
