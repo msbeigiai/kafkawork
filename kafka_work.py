@@ -4,6 +4,7 @@ from work_with_redis import WorkRedis
 
 wr = WorkRedis()
 
+
 class KafkaWork:
     def __init__(self, kafka_config):
         self.consumer = None
@@ -12,7 +13,6 @@ class KafkaWork:
         self.id_values = kafka_config["id_values"]
         self.value = []
         self.message = []
-
 
     def create_consumer(self):
         self.consumer = KafkaConsumer(
@@ -49,14 +49,13 @@ class KafkaWork:
                     raise ValueError("There is no message to show!")
                 else:
                     self.value.append(loads(message.value))
-                    # self.message = message
                     print(message.value)
-                    # return message.value
                     print(50*'-')
                     num = self._list_len()
                     print(num)
                     print(50*'-')
                     self._fetch_id(loads(message.value))
+                    self._check(self.message)
 
     def _list_len(self):
         return len(self.value)

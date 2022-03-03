@@ -1,8 +1,12 @@
 import pyodbc
+import values
+
+db = values.database_config
 
 
 class MakeSqlConnection:
-    def __init__(self, database_name, table_name, username, password, server='tcp:localhost,1433'):
+    def __init__(self, database_name=db["database_name"], table_name=db["table_name"], username=db["username"],
+                 password=db["password"], server=db["server"]):
         self.command = None
         self.cnxn = None
         self.cursor = None
