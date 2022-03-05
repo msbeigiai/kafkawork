@@ -25,11 +25,14 @@ class WorkRedis:
         for i in range(len(record)):
             for key, val in record[i].items():
                 redis_key = self.r.get(val)
+                temp = 0
                 if redis_key is None and val is not '':
-                    fs = FetchSql(key, column[i])
+                    temp = 0 if (len(record) % 2) != 0 else 1
+                    fs = FetchSql(key, column[temp])
                     row = Conversion.convert_to_byte(fs.result)
                     for value in row:
-                        self.r.set(key, str(value))
+                        new_key = column[temp] + ':' + key
+                        self.r.set(new_key, str(value))
                     # print(fs.value)
                 elif val == '':
                     print("Value is NULL for adding to Redis!")

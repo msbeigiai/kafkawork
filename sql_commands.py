@@ -17,14 +17,14 @@ class SqlCommand:
 							from CUSTTABLE c \
 							inner join DIRPARTYTABLE d on c.PARTY = d.RECID \
 							where \
-							c.ACCOUNTNUM = " + str(self.name)
+							c.ACCOUNTNUM = '%s'" % str(self.name)
 
-	def command_custom(self):
-		self.commands = "select d.name \
-				from CUSTTABLE c \
-				inner join DIRPARTYTABLE d on c.PARTY = d.RECID \
-				where \
-				c.ACCOUNTNUM = " + str(self.name)
+	# def command_custom(self):
+	# 	self.commands = "select d.name \
+	# 			from CUSTTABLE c \
+	# 			inner join DIRPARTYTABLE d on c.PARTY = d.RECID \
+	# 			where \
+	# 			c.ACCOUNTNUM = " + str(self.name)
 
 # store_num = '1051'
 # account_num = 'OSH-018214'

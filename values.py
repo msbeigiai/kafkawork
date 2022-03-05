@@ -11,7 +11,7 @@ transactiontable_id_list = ['STORE', 'CUSTACCOUNT']
 # " dbo.GBG_RETAILPERIODICISCOUNTLOG "
 
 fetch_key_table = {
-    "TRANSACTIONID": "dbo.RETAILTRANSACTIONTABLE"
+    "TRANSACTIONID": "RETAILTRANSACTIONTABLE"
 }
 
 kafka_config = {
