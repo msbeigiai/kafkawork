@@ -63,6 +63,7 @@ class KafkaWork:
         return len(self.value)
 
     def _fetch_id(self, msg):
+        self.message = []
         dict_records = {}
         self.records = []
         for i in range(len(self.id_values)):

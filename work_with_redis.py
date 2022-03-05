@@ -27,7 +27,7 @@ class WorkRedis:
                 redis_key = self.r.get(val)
                 temp = 0
                 if redis_key is None and val is not '':
-                    temp = 0 if (len(record) % 2) != 0 else 1
+                    temp = 0 if (len(record) % 2) == 0 else 1
                     fs = FetchSql(key, column[temp])
                     row = Conversion.convert_to_byte(fs.result)
                     for value in row:
