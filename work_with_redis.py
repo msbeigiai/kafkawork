@@ -20,19 +20,19 @@ class WorkRedis:
         else:
             return r
 
-    def check_if_id_exists(self, record):
+    def check_if_id_exists(self, record, column):
 
         for i in range(len(record)):
             for key, val in record[i].items():
                 redis_key = self.r.get(val)
                 if redis_key is None and val is not '':
-                    fs = FetchSql(val, key)
+                    fs = FetchSql(key, column[i])
                     row = Conversion.convert_to_byte(fs.result)
                     for value in row:
                         self.r.lpush(key, str(value))
                     # print(fs.value)
                 elif val == '':
-                    raise ValueError("Value is NULL for adding to Redis!")
+                    print("Value is NULL for adding to Redis!")
                 else:
                     # check_value = self.r.get(key)
                     print("Key exist...")
