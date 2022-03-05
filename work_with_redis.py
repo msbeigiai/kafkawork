@@ -29,7 +29,7 @@ class WorkRedis:
                     fs = FetchSql(key, column[i])
                     row = Conversion.convert_to_byte(fs.result)
                     for value in row:
-                        self.r.lpush(key, str(value))
+                        self.r.set(key, str(value))
                     # print(fs.value)
                 elif val == '':
                     print("Value is NULL for adding to Redis!")
@@ -57,11 +57,11 @@ class WorkRedis:
 
         # key = record[0][0]
 
-        check_value = self.r.get(key)
-        if check_value is None:
-            # Go through SQL server and fetch data of the KEY and insert it to the
-            # corresponding key.
-            fetch_key_table = val.fetch_key_table[val.transactiontable_id_list[0]]
-            fs = FetchSql(fetch_key_table)
-            print(fs.value)
-            # self.r.set(key, "Mohsen")
+        # check_value = self.r.get(key)
+        # if check_value is None:
+        #     # Go through SQL server and fetch data of the KEY and insert it to the
+        #     # corresponding key.
+        #     fetch_key_table = val.fetch_key_table[val.transactiontable_id_list[0]]
+        #     fs = FetchSql(fetch_key_table)
+        #     print(fs.value)
+        #     # self.r.set(key, "Mohsen")

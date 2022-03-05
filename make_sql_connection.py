@@ -16,8 +16,8 @@ class MakeSqlConnection:
         self.password = password
         self.server = server
         self.check = self.__check_connection()
-        if self.check:
-            print('CONNECTION ESTABLISHED')
+        # if self.check:
+        #     print('CONNECTION ESTABLISHED')
 
     def __make_connection(self):
         self.cnxn = pyodbc.connect(

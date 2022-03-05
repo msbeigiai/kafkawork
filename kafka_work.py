@@ -64,6 +64,7 @@ class KafkaWork:
 
     def _fetch_id(self, msg):
         dict_records = {}
+        self.records = []
         for i in range(len(self.id_values)):
             # dict_records = {m: m for m in msg["payload"]["after"][self.id_values[i]]}
             # records.append(msg["payload"]["after"][self.id_values[i]])
