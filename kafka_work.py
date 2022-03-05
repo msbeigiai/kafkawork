@@ -49,8 +49,8 @@ class KafkaWork:
                     raise ValueError("There is no message to show!")
                 else:
                     self.value.append(loads(message.value))
-                    print(message.value)
-                    print(50*'-')
+                    # print(message.value)
+                    # print(50*'-')
                     num = self._list_len()
                     print(num)
                     print(50*'-')

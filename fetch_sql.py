@@ -9,4 +9,4 @@ class FetchSql:
 
     def _fetch_data(self):
         command = "select top 10 * from " + self.table_name
-        return self.conn.execution_command(command)
+        return self.conn.execution_command(command=command, command_type='select')

@@ -8,9 +8,10 @@ def value_deserializer(): lambda x: loads(x.decode('utf-8'))
 
 
 transactiontable_id_list = ['TRANSACTIONID', 'STORE', 'TERMINAL', 'CHANNEL', 'DATAAREAID', 'PARTITION']
+# " dbo.GBG_RETAILPERIODICISCOUNTLOG "
 
 fetch_key_table = {
-    "TRANSACTIONID": "GBG_RETAILPERIODICISCOUNTLOG"
+    "TRANSACTIONID": "dbo.RETAILTRANSACTIONTABLE"
 }
 
 kafka_config = {
@@ -24,7 +25,7 @@ kafka_config = {
 }
 
 database_config = {
-    "database_name": "MicrosoftDynamicsNX",
+    "database_name": "MicrosoftDynamicsAX",
     "table_name": "dbo.RETAILTRANSACTIONTABLE",
     "username": "sa",
     "password": "testpassword",
