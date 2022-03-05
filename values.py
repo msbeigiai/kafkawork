@@ -7,7 +7,7 @@ topic_name = 'DebeziumTestServer.dbo.RETAILTRANSACTIONTABLE'
 def value_deserializer(): lambda x: loads(x.decode('utf-8'))
 
 
-transactiontable_id_list = ['TRANSACTIONID', 'STORE', 'TERMINAL', 'CHANNEL', 'DATAAREAID', 'PARTITION']
+transactiontable_id_list = ['STORE', 'CUSTACCOUNT']
 # " dbo.GBG_RETAILPERIODICISCOUNTLOG "
 
 fetch_key_table = {

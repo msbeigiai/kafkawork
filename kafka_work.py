@@ -1,6 +1,7 @@
 from kafka import KafkaConsumer, KafkaProducer
 from json import loads
 from work_with_redis import WorkRedis
+import values
 
 wr = WorkRedis()
 
@@ -61,10 +62,15 @@ class KafkaWork:
         return len(self.value)
 
     def _fetch_id(self, msg):
+
         records = []
+        dict_records = {}
         for i in range(len(self.id_values)):
-            records.append(msg["payload"]["after"][self.id_values[i]])
-        self.message.append(records)
+            # dict_records = {m: m for m in msg["payload"]["after"][self.id_values[i]]}
+            # records.append(msg["payload"]["after"][self.id_values[i]])
+            id_name = msg["payload"]["after"][self.id_values[i]]
+            dict_records[id_name] = msg["payload"]["after"][self.id_values[i]]
+        self.message.append(dict_records)
 
     def _check(self, record):
         wr.check_if_id_exists(record)
