@@ -14,9 +14,10 @@ class KafkaWork:
         self.producer = None
         self.kafka_config = kafka_config
         self.id_values = kafka_config["id_values"]
-        self.value = []
+        self.value = None
         self.message = []
         self.records = []
+        self.list_count = []
 
     def create_consumer(self):
         self.consumer = KafkaConsumer(
@@ -48,22 +49,24 @@ class KafkaWork:
         if self.consumer is None:
             raise ValueError("Consumer is NULL!")
         else:
+
             for message in self.consumer:
                 if message is None:
                     raise ValueError("There is no message to show!")
                 else:
-                    self.value.append(loads(message.value))
+                    self.value = loads(message.value)
+                    self.list_count.append(self.value)
                     # print(message.value)
                     # print(50*'-')
                     num = self._list_len()
                     print(num)
                     print(50*'-')
-                    self._fetch_id(loads(message.value))
+                    self._fetch_id(self.value)
                     self._check(self.message, self.value)
                     self._send_producer()
 
     def _list_len(self):
-        return len(self.value)
+        return len(self.list_count)
 
     def _fetch_id(self, msg):
         self.message = []

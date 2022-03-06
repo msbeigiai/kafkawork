@@ -33,11 +33,12 @@ class WorkRedis:
                     row = Conversion.convert_to_byte(fs.result)
                     for value in row:
                         self.r.set(key, str(value))
-                        row_record[0]["payload"]["after"][key] = converted_value
+                        row_record["payload"]["after"][key] = converted_value
+                        self.row_record = row_record
                 elif val == '':
                     print("Value is NULL for adding to Redis!")
                 else:
                     # check_value = self.r.get(key)
                     print("Key exist...")
-                    row_record[0]["payload"]["after"][key] = converted_value
+                    row_record["payload"]["after"][key] = converted_value
                     self.row_record = row_record
