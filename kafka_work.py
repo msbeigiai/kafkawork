@@ -7,7 +7,6 @@ import values
 
 wr = WorkRedis()
 
-
 class KafkaWork:
     def __init__(self, kafka_config):
         self.consumer = None
@@ -15,9 +14,10 @@ class KafkaWork:
         self.kafka_config = kafka_config
         self.id_values = kafka_config["id_values"]
         self.value = None
-        self.message = []
+        self.message = None
         self.records = []
         self.list_count = []
+        self.number_of_producer = 1
 
     def create_consumer(self):
         self.consumer = KafkaConsumer(
@@ -69,25 +69,27 @@ class KafkaWork:
         return len(self.list_count)
 
     def _fetch_id(self, msg):
-        self.message = []
         dict_records = {}
         self.records = []
         for i in range(len(self.id_values)):
             id_name = msg["payload"]["after"][self.id_values[i]]
             self.records.append(self.id_values[i])
             dict_records[self.records[i]+':'+id_name] = msg["payload"]["after"][self.id_values[i]]
-        self.message.append(dict_records)
+        self.message = dict_records
 
     def _check(self, record, row_record):
         wr.check_if_id_exists(record, row_record)
 
     def _send_producer(self):
+        self.number_of_producer = 1
         if self.producer is None:
             raise ValueError('Producer is NULL!')
         else:
-            for data in wr.row_record:
-                self.producer.send("enriched_producer", value=data)
-                print('Sent to producer!')
+            data = wr.row_record
+            print(f'Number of total producer sent: {self.number_of_producer}')
+            self.producer.send("enriched_producer", value=data)
+            print('Sent to producer!')
+            self.number_of_producer = self.number_of_producer + 1
 
 
 
