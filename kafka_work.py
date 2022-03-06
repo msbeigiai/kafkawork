@@ -57,7 +57,8 @@ class KafkaWork:
                     print(num)
                     print(50*'-')
                     self._fetch_id(loads(message.value))
-                    self._check(self.message, self.records)
+                    self._check(self.message, self.value)
+                    self._send_producer()
 
     def _list_len(self):
         return len(self.value)
@@ -67,15 +68,19 @@ class KafkaWork:
         dict_records = {}
         self.records = []
         for i in range(len(self.id_values)):
-            # dict_records = {m: m for m in msg["payload"]["after"][self.id_values[i]]}
-            # records.append(msg["payload"]["after"][self.id_values[i]])
             id_name = msg["payload"]["after"][self.id_values[i]]
             self.records.append(self.id_values[i])
             dict_records[self.records[i]+':'+id_name] = msg["payload"]["after"][self.id_values[i]]
         self.message.append(dict_records)
 
-    def _check(self, record, column_name):
-        wr.check_if_id_exists(record, column_name)
+    def _check(self, record, row_record):
+        wr.check_if_id_exists(record, row_record)
+
+    def _send_producer(self):
+        if self.producer is None:
+            raise ValueError('Producer is NULL!')
+        else:
+            self.producer.send("enriched_producer", wr.row_record)
 
 
 
