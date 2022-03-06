@@ -71,7 +71,7 @@ class KafkaWork:
             # records.append(msg["payload"]["after"][self.id_values[i]])
             id_name = msg["payload"]["after"][self.id_values[i]]
             self.records.append(self.id_values[i])
-            dict_records[id_name] = msg["payload"]["after"][self.id_values[i]]
+            dict_records[self.records[i]+':'+id_name] = msg["payload"]["after"][self.id_values[i]]
         self.message.append(dict_records)
 
     def _check(self, record, column_name):

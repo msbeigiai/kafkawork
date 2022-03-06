@@ -8,10 +8,10 @@ class FetchSql:
     #     self.table_name = table_name
     #     self.value = self._fetch_data()
 
-    def __init__(self, key_name, operation):
+    def __init__(self, key_name):
         self.conn = MakeSqlConnection()
         sc = SqlCommand(key_name)
-        sc.return_command(operation)
+        sc.return_command()
         self.result = self._fetch_data(sc.commands)
 
     def _fetch_data(self, command):
