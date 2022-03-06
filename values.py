@@ -1,3 +1,4 @@
+import json
 from json import loads
 
 topic_name = 'DebeziumTestServer.dbo.RETAILTRANSACTIONTABLE'
@@ -5,6 +6,7 @@ topic_name = 'DebeziumTestServer.dbo.RETAILTRANSACTIONTABLE'
 
 
 def value_deserializer(): lambda x: loads(x.decode('utf-8'))
+def value_serializer(): lambda x: json.dumps(x).encode('utf-8')
 
 
 transactiontable_id_list = ['STORE', 'CUSTACCOUNT']
@@ -21,6 +23,7 @@ kafka_config = {
     "enable_auto_commit": True,
     "group_id": 'some_group01',
     "value_deserializer": value_deserializer(),
+    "value_serializer": value_serializer(),
     "id_values": transactiontable_id_list
 }
 

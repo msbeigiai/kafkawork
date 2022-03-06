@@ -1,3 +1,5 @@
+import json
+
 from kafka import KafkaConsumer, KafkaProducer
 from json import loads
 from work_with_redis import WorkRedis
@@ -35,7 +37,7 @@ class KafkaWork:
     def create_producer(self):
         self.producer = KafkaProducer(
             bootstrap_servers=self.kafka_config["bootstrap_servers"],
-            value_serializer=self.kafka_config["value_deserializer"]
+            value_serializer=lambda v: json.dumps(v).encode('utf-8')
         )
         if self.producer is None:
             raise ValueError(f"Producer is NULL!")
@@ -80,7 +82,9 @@ class KafkaWork:
         if self.producer is None:
             raise ValueError('Producer is NULL!')
         else:
-            self.producer.send("enriched_producer", wr.row_record)
+            for data in wr.row_record:
+                self.producer.send("enriched_producer", value=data)
+                print('Sent to producer!')
 
 
 
