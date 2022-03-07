@@ -96,11 +96,11 @@ class KafkaWork:
         else:
             data = wr.row_record
             # for producer in data:
-            self.producer.send("enriched_producer_8", value=data)
+            self.producer.send("enriched_producer_9", value=data)
             print(f'Number of total producer sent: {self.number_of_producer}')
             print('Sent to producer!')
             self.number_of_producer = self.number_of_producer + 1
-            collection.insert_one(data)
+            # collection.insert_one(data)
 
 
 

@@ -32,7 +32,7 @@ class WorkRedis:
                 row_record["payload"]["after"][key] = converted_value
                 # self.row_record.append(row_record["payload"]["after"])
             elif redis_value is None and val is not '':
-                fs = FetchSql(key)
+                fs = FetchSql(key+':'+val)
                 row = Conversion.convert_to_byte(fs.result)
                 if row:
                     for value in row:
@@ -42,6 +42,7 @@ class WorkRedis:
                 else:
                     row_record["payload"]["after"][key] = 'Empty Value: ' + val
             elif val == '':
+                row_record["payload"]["after"][key] = 'Empty Value: ' + val
                 print("Value is NULL for adding to Redis!")
 
         self.row_record = row_record["payload"]["after"]
