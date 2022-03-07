@@ -23,24 +23,22 @@ class WorkRedis:
 
     def check_if_id_exists(self, record, row_record):
         # for i in range(len(record)):
+        self.row_record = []
         for key, val in record.items():
             redis_value = self.r.get(key)
-            converted_value = ''
             if redis_value is not None:
                 converted_value = Conversion.convert_from_byte(redis_value)
-            if redis_value is None and val is not '':
-                fs = FetchSql(key)
-                row = Conversion.convert_to_byte(fs.result)
-                for value in row:
-                    self.r.set(key, str(value))
-                    row_record["payload"]["after"][key] = converted_value
-                    self.row_record = row_record
-                    break
-            elif val == '':
-                print("Value is NULL for adding to Redis!")
-                break
-            else:
-                # check_value = self.r.get(key)
                 print("Key exist...")
                 row_record["payload"]["after"][key] = converted_value
-                self.row_record = row_record
+                self.row_record.append(row_record["payload"]["after"])
+            elif redis_value is None and val is not '':
+                fs = FetchSql(key)
+                row = Conversion.convert_to_byte(fs.result)
+                if row:
+                    for value in row:
+                        self.r.set(key, str(value))
+                        row_record["payload"]["after"][key] = value
+                        self.row_record.append(row_record["payload"]["after"])
+            elif val == '':
+                print("Value is NULL for adding to Redis!")
+
