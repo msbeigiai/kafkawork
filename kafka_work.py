@@ -1,11 +1,15 @@
 import json
-
 from kafka import KafkaConsumer, KafkaProducer
 from json import loads
 from work_with_redis import WorkRedis
 import values
+from pymongo import MongoClient
 
 wr = WorkRedis()
+
+CONNECTION_STRING = "mongodb+srv://sa:testpassword@cluster0.0djau.mongodb.net/test"
+client = MongoClient('localhost:27017')
+collection = client.Enriched.enriched7
 
 class KafkaWork:
     def __init__(self, kafka_config):
@@ -71,10 +75,15 @@ class KafkaWork:
     def _fetch_id(self, msg):
         dict_records = {}
         self.records = []
+        # for i in range(len(self.id_values)):
+        #     id_name = msg["payload"]["after"][self.id_values[i]]
+        #     self.records.append(self.id_values[i])
+        #     dict_records[self.records[i]+':'+id_name] = msg["payload"]["after"][self.id_values[i]]
+        # self.message = dict_records
         for i in range(len(self.id_values)):
             id_name = msg["payload"]["after"][self.id_values[i]]
             self.records.append(self.id_values[i])
-            dict_records[self.records[i]+':'+id_name] = msg["payload"]["after"][self.id_values[i]]
+            dict_records[self.records[i]] = msg["payload"]["after"][self.id_values[i]]
         self.message = dict_records
 
     def _check(self, record, row_record):
@@ -86,11 +95,12 @@ class KafkaWork:
             raise ValueError('Producer is NULL!')
         else:
             data = wr.row_record
-            for producer in data:
-                self.producer.send("enriched_producer_5", value=producer)
-                print(f'Number of total producer sent: {self.number_of_producer}')
-                print('Sent to producer!')
-                self.number_of_producer = self.number_of_producer + 1
+            # for producer in data:
+            self.producer.send("enriched_producer_8", value=data)
+            print(f'Number of total producer sent: {self.number_of_producer}')
+            print('Sent to producer!')
+            self.number_of_producer = self.number_of_producer + 1
+            collection.insert_one(data)
 
 
 

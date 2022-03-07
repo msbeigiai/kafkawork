@@ -7,19 +7,19 @@ class SqlCommand:
 
 	def return_command(self):
 		if 'STORE' in self.key_name:
-			temp_string = self.key_name.replace('STORE:', '')
+			# temp_string = self.key_name.replace('STORE:', '')
 			self.commands = "select c.NAME " \
 						"from RETAILCHANNELTABLE a inner join OMOPERATINGUNITVIEW b " \
 						"on a.OMOPERATINGUNITID = b.RECID inner join DIRPARTYTABLE c " \
-						"ON c.PARTYNUMBER = b.PARTYNUMBER where a.STORENUMBER = '%s'" % temp_string
+						"ON c.PARTYNUMBER = b.PARTYNUMBER where a.STORENUMBER = '%s'" % self.key_name
 
 		elif 'CUSTACCOUNT' in self.key_name:
-			temp_string = self.key_name.replace('CUSTACCOUNT:', '')
+			# temp_string = self.key_name.replace('CUSTACCOUNT:', '')
 			self.commands = "select d.name \
 							from CUSTTABLE c \
 							inner join DIRPARTYTABLE d on c.PARTY = d.RECID \
 							where \
-							c.ACCOUNTNUM = '%s'" % temp_string
+							c.ACCOUNTNUM = '%s'" % self.key_name
 
 	# def command_custom(self):
 	# 	self.commands = "select d.name \
