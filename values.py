@@ -1,6 +1,7 @@
 import json
 from json import loads
 
+
 topic_name = 'DebeziumTestServer.dbo.RETAILTRANSACTIONTABLE'
 # topic_name = 'dbhistory.RETAILTRANSACTIONTABLE.DebeziumTestServer'
 

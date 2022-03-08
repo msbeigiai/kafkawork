@@ -43,6 +43,5 @@ class WorkRedis:
                     row_record["payload"]["after"][key] = 'Empty Value: ' + val
             elif val == '':
                 row_record["payload"]["after"][key] = 'Empty Value: ' + val
-                print("Value is NULL for adding to Redis!")
 
         self.row_record = row_record["payload"]["after"]

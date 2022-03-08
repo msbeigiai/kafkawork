@@ -2,8 +2,8 @@ import json
 from kafka import KafkaConsumer, KafkaProducer
 from json import loads
 from work_with_redis import WorkRedis
-import values
 from pymongo import MongoClient
+import datetime as dt
 
 wr = WorkRedis()
 
@@ -96,7 +96,7 @@ class KafkaWork:
         else:
             data = wr.row_record
             # for producer in data:
-            self.producer.send("enriched_producer_9", value=data)
+            self.producer.send("enriched_producer_11", value=data)
             print(f'Number of total producer sent: {self.number_of_producer}')
             print('Sent to producer!')
             self.number_of_producer = self.number_of_producer + 1
