@@ -16,8 +16,6 @@ class MakeSqlConnection:
         self.password = password
         self.server = server
         self.check = self.__check_connection()
-        # if self.check:
-        #     print('CONNECTION ESTABLISHED')
 
     def __make_connection(self):
         self.cnxn = pyodbc.connect(
@@ -49,7 +47,6 @@ class MakeSqlConnection:
 
         if command_type == 'select':
             value = self.cursor.fetchone()
-            # value = [x[0] for x in self.cursor.fetchall()]
             if value is None:
                 value = ''
             return value

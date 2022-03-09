@@ -1,10 +1,7 @@
 import json
 from json import loads
 
-
 topic_name = 'DebeziumTestServer.dbo.RETAILTRANSACTIONTABLE'
-# topic_name = 'dbhistory.RETAILTRANSACTIONTABLE.DebeziumTestServer'
-
 
 def value_deserializer(): lambda x: loads(x.decode('utf-8'))
 def value_serializer(): lambda x: json.dumps(x).encode('utf-8')

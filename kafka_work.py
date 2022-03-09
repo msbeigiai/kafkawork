@@ -3,7 +3,6 @@ from kafka import KafkaConsumer, KafkaProducer
 from json import loads
 from work_with_redis import WorkRedis
 from pymongo import MongoClient
-import datetime as dt
 
 wr = WorkRedis()
 
@@ -49,7 +48,7 @@ class KafkaWork:
         else:
             print(f"{self.producer} is established.")
 
-    def add_message(self, number_of_records=1):
+    def add_message(self):
         if self.consumer is None:
             raise ValueError("Consumer is NULL!")
         else:
@@ -60,8 +59,6 @@ class KafkaWork:
                 else:
                     self.value = loads(message.value)
                     self.list_count.append(self.value)
-                    # print(message.value)
-                    # print(50*'-')
                     num = self._list_len()
                     print(num)
                     print(50*'-')
@@ -75,11 +72,6 @@ class KafkaWork:
     def _fetch_id(self, msg):
         dict_records = {}
         self.records = []
-        # for i in range(len(self.id_values)):
-        #     id_name = msg["payload"]["after"][self.id_values[i]]
-        #     self.records.append(self.id_values[i])
-        #     dict_records[self.records[i]+':'+id_name] = msg["payload"]["after"][self.id_values[i]]
-        # self.message = dict_records
         for i in range(len(self.id_values)):
             id_name = msg["payload"]["after"][self.id_values[i]]
             self.records.append(self.id_values[i])
@@ -95,12 +87,10 @@ class KafkaWork:
             raise ValueError('Producer is NULL!')
         else:
             data = wr.row_record
-            # for producer in data:
-            self.producer.send("enriched_producer_11", value=data)
+            self.producer.send("enriched_producer_header_01", value=data)
             print(f'Number of total producer sent: {self.number_of_producer}')
             print('Sent to producer!')
             self.number_of_producer = self.number_of_producer + 1
-            # collection.insert_one(data)
 
 
 
