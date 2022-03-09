@@ -73,7 +73,6 @@ class KafkaWork:
         dict_records = {}
         self.records = []
         for i in range(len(self.id_values)):
-            id_name = msg["payload"]["after"][self.id_values[i]]
             self.records.append(self.id_values[i])
             dict_records[self.records[i]] = msg["payload"]["after"][self.id_values[i]]
         self.message = dict_records

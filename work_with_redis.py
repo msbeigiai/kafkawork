@@ -1,5 +1,4 @@
 import redis
-import values
 from fetch_sql import FetchSql
 from conversion import Conversion
 
