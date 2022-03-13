@@ -21,8 +21,8 @@ kafka_config = {
     "auto_offset_reset": 'earliest',
     "enable_auto_commit": True,
     "group_id": 'some_group01',
-    "value_deserializer": value_deserializer(),
-    "value_serializer": value_serializer(),
+    # "value_deserializer": value_deserializer(),
+    # "value_serializer": value_serializer(),
     "id_values": transactiontable_id_list
 }
 

@@ -10,6 +10,7 @@ CONNECTION_STRING = "mongodb+srv://sa:testpassword@cluster0.0djau.mongodb.net/te
 client = MongoClient('localhost:27017')
 collection = client.Enriched.enriched7
 
+
 class KafkaWork:
     def __init__(self, kafka_config):
         self.consumer = None
@@ -29,7 +30,7 @@ class KafkaWork:
             auto_offset_reset=self.kafka_config["auto_offset_reset"],
             enable_auto_commit=self.kafka_config["enable_auto_commit"],
             group_id=self.kafka_config["group_id"],
-            value_deserializer=self.kafka_config["value_deserializer"]
+            value_deserializer=lambda x: loads(x.decode('utf-8'))
         )
 
         if self.consumer is None:
@@ -57,7 +58,7 @@ class KafkaWork:
                 if message is None:
                     raise ValueError("There is no message to show!")
                 else:
-                    self.value = loads(message.value)
+                    self.value = message.value
                     self.list_count.append(self.value)
                     num = self._list_len()
                     print(num)
