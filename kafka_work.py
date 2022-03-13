@@ -87,7 +87,7 @@ class KafkaWork:
             raise ValueError('Producer is NULL!')
         else:
             data = wr.row_record
-            self.producer.send("enriched_producer_header_01", value=data)
+            self.producer.send("enriched_producer_header_05", value=data)
             print(f'Number of total producer sent: {self.number_of_producer}')
             print('Sent to producer!')
             self.number_of_producer = self.number_of_producer + 1
